@@ -52,7 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isAppLoaded = false;
   isUserLoggedIn = false;
   newNotificationCount = 0;
-  appTitle = 'QuickApp';
+  appTitle = 'Qubix';
 
   stickyToasties: number[] = [];
 

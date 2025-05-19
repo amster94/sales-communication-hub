@@ -20,6 +20,21 @@ export const routes: Routes = [
     title: 'Login'
   },
   {
+    path: 'admin-login',
+    loadComponent: () => import('./components/Admin/admin-login/admin-login.component').then(m => m.AdminLoginComponent),
+    title: 'Login'
+  },
+  {
+    path: 'manager-login',
+    loadComponent: () => import('./components/Manager/manager-login/manager-login.component').then(m => m.ManagerLoginComponent),
+    title: 'Login'
+  },
+  {
+    path: 'sales-login',
+    loadComponent: () => import('./components/SalesPerson/sales-login/sales-login.component').then(m => m.SalesLoginComponent),
+    title: 'Login'
+  },
+  {
     path: 'customers',
     loadComponent: () => import('./components/customers/customers.component').then(m => m.CustomersComponent),
     canActivate: [AuthGuard],
