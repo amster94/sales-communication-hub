@@ -26,6 +26,7 @@
     "Customers": "Les clients",
     "Products": "Les produits",
     "Orders": "Les ordres",
+    "CreateLead": "Créer un prospect",
     "About": "À Propos",
     "Logout": "Se Déconnecter"
   },
@@ -34,6 +35,7 @@
     "Customers": "Les clients",
     "Products": "Les produits",
     "Orders": "Les ordres",
+    "CreateLeadForm": "Ajouter un nouveau prospect",
     "NotFound": "Pas trouvé",
     "About": "À Propos",
     "Settings": "Paramètres"

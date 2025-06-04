@@ -26,6 +26,7 @@
     "Customers": "고객",
     "Products": "제작품",
     "Orders": "명령",
+    "CreateLead": "리드 생성",
     "About": "약",
     "Logout": "로그 아웃"
   },
@@ -34,6 +35,7 @@
     "Customers": "고객",
     "Products": "제작품",
     "Orders": "명령",
+    "CreateLeadForm": "새 리드 추가",
     "NotFound": "발견되지 않음",
     "About": "약",
     "Settings": "설정"

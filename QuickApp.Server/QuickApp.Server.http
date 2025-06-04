@@ -130,3 +130,20 @@ GET {{QuickApp.Client_HostAddress}}/api/Customer
 Accept: */*
 
 ### ... Add more APIs here
+
+###################################################
+### Sales Lead APIs
+###################################################
+
+POST {{QuickApp.Server_HostAddress}}/api/saleslead/create-lead
+Content-Type: application/json
+{
+  "leadName": "John Doe",
+  "emailAddress": "john@example.com",
+  "phoneNumber": "1234567890",
+  "productInterest": "CRM",
+  "leadType": "Hot",
+  "leadSource": "Website",
+  "leadRequirements": "Needs integration",
+  "expectedBudget": "5000"
+}

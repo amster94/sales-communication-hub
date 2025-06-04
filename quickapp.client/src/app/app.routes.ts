@@ -6,6 +6,8 @@
 
 import { Routes } from '@angular/router';
 import { AuthGuard } from './services/auth-guard';
+import { NgModule } from '@angular/core';
+
 
 export const routes: Routes = [
   {
@@ -51,6 +53,12 @@ export const routes: Routes = [
     loadComponent: () => import('./components/orders/orders.component').then(m => m.OrdersComponent),
     canActivate: [AuthGuard],
     title: 'Orders'
+  },
+  {
+    path: 'sales-lead',
+    loadComponent: () => import('./components/SalesLead/sales-lead.component').then(m => m.SalesLeadComponent),
+    canActivate: [AuthGuard],
+    title: 'create-lead'
   },
   {
     path: 'settings',

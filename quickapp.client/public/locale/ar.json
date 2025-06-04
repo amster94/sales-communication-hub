@@ -26,6 +26,7 @@
     "Customers": "الزبائن",
     "Products": "المنتجات",
     "Orders": "الأوامر",
+    "CreateLead": "إنشاء الرصاص",
     "About": "حول منجز التطبيق",
     "Logout": "الخروج"
   },
@@ -34,6 +35,7 @@
     "Customers": "الزبائن",
     "Products": "المنتجات",
     "Orders": "الأوامر",
+    "CreateLeadForm": "إضافة عميل محتمل جديد",
     "NotFound": "لا يوجد",
     "About": "حول منجز التطبيق",
     "Settings": "إعدادات"

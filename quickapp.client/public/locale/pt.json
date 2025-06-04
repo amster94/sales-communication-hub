@@ -26,6 +26,7 @@
     "Customers": "Clientes",
     "Products": "Produtos",
     "Orders": "Pedidos",
+    "CreateLead": "Criar lead",
     "About": "Sobre",
     "Logout": "Sair"
   },
@@ -34,6 +35,7 @@
     "Customers": "Clientes",
     "Products": "Produtos",
     "Orders": "Pedidos",
+    "CreateLeadForm": "Adicionar novo lead",
     "NotFound": "Não Encontrado",
     "About": "Sobre",
     "Settings": "Configurações"
