@@ -1,7 +1,114 @@
 <header class="pageHeader">
-  <h3><i class="fa fa-shopping-cart fa-lg page-caption" aria-hidden="true"></i> {{'pageHeader.Orders' | translate}}</h3>
+  <h3>{{'pageHeader.CreateLeadForm' | translate }}</h3>
 </header>
 
-<div [@fadeInOut]>
-  <span class="text-muted">-- Sample Page --</span>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <form [formGroup]="leadForm" novalidate>
+        <!-- Lead Name -->
+        <div class="form-group mb-3">
+          <label for="LeadName">Lead Name</label>
+          <input type="text" class="form-control" id="LeadName" formControlName="leadName"
+                 [class.is-invalid]="leadForm.get('leadName')?.invalid && leadForm.get('leadName')?.touched">
+          <div *ngIf="leadForm.get('leadName')?.errors?.['required'] && leadForm.get('leadName')?.touched" class="invalid-feedback">
+            Lead Name is required.
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group mb-3">
+          <label for="EmailAddress">Email Address</label>
+          <input type="email" class="form-control" id="EmailAddress" formControlName="emailAddress"
+                 [class.is-invalid]="leadForm.get('emailAddress')?.invalid && leadForm.get('emailAddress')?.touched">
+          <div *ngIf="leadForm.get('emailAddress')?.errors?.['email'] && leadForm.get('emailAddress')?.touched" class="invalid-feedback">
+            Enter a valid email.
+          </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group mb-3">
+          <label for="PhoneNumber">Phone Number</label>
+          <input type="text" class="form-control" id="PhoneNumber" formControlName="phoneNumber"
+                 [class.is-invalid]="leadForm.get('phoneNumber')?.invalid && leadForm.get('phoneNumber')?.touched">
+          <div *ngIf="leadForm.get('phoneNumber')?.errors?.['pattern'] && leadForm.get('phoneNumber')?.touched" class="invalid-feedback">
+            Must be a valid 10-digit number.
+          </div>
+        </div>
+
+        <!-- Product Interest -->
+        <div class="form-group mb-3">
+          <label for="ProductInterest">Product of Interest</label>
+          <select id="ProductInterest" class="form-control" formControlName="productInterest"
+                  [class.is-invalid]="leadForm.get('productInterest')?.invalid && leadForm.get('productInterest')?.touched">
+            <option value="">Select Product of Interest</option>
+            <option value="Copper">Copper</option>
+            <option value="Fiber Optic">Fiber Optic</option>
+            <option value="Racks">Racks</option>
+          </select>
+          <div *ngIf="leadForm.get('productInterest')?.errors?.['required'] && leadForm.get('productInterest')?.touched" class="invalid-feedback">
+            Please select a product.
+          </div>
+        </div>
+
+        <!-- Lead Type -->
+        <div class="form-group mb-3">
+          <label for="LeadType">Lead Type</label>
+          <select id="LeadType" class="form-control" formControlName="leadType"
+                  [class.is-invalid]="leadForm.get('leadType')?.invalid && leadForm.get('leadType')?.touched">
+            <option value="">Select Lead Type</option>
+            <option value="New Inquiry">New Inquiry</option>
+            <option value="Existing Customer">Existing Customer</option>
+            <option value="Referral">Referral</option>
+          </select>
+          <div *ngIf="leadForm.get('leadType')?.errors?.['required'] && leadForm.get('leadType')?.touched" class="invalid-feedback">
+            Please select lead type.
+          </div>
+        </div>
+
+        <!-- Lead Source -->
+        <div class="form-group mb-3">
+          <label for="LeadSource">Lead Source</label>
+          <select id="LeadSource" class="form-control" formControlName="leadSource"
+                  [class.is-invalid]="leadForm.get('leadSource')?.invalid && leadForm.get('leadSource')?.touched">
+            <option value="">Select Lead Source</option>
+            <option value="Website">Website</option>
+            <option value="Event">Event</option>
+            <option value="Referral">Referral</option>
+          </select>
+          <div *ngIf="leadForm.get('leadSource')?.errors?.['required'] && leadForm.get('leadSource')?.touched" class="invalid-feedback">
+            Please select lead source.
+          </div>
+        </div>
+
+        <!-- Lead Requirements -->
+        <div class="form-group mb-3">
+          <label for="LeadRequirements">Lead Requirements</label>
+          <textarea class="form-control" id="LeadRequirements" formControlName="leadRequirements"
+                    [class.is-invalid]="leadForm.get('leadRequirements')?.invalid && leadForm.get('leadRequirements')?.touched"
+                    rows="3"></textarea>
+          <div *ngIf="leadForm.get('leadRequirements')?.errors?.['required'] && leadForm.get('leadRequirements')?.touched" class="invalid-feedback">
+            Please provide requirements.
+          </div>
+        </div>
+
+        <!-- Expected Budget -->
+        <div class="form-group mb-3">
+          <label for="ExpectedBudget">Expected Budget</label>
+          <input type="text" class="form-control" id="ExpectedBudget" formControlName="expectedBudget"
+                 [class.is-invalid]="leadForm.get('expectedBudget')?.invalid && leadForm.get('expectedBudget')?.touched">
+          <div *ngIf="leadForm.get('expectedBudget')?.errors?.['required'] && leadForm.get('expectedBudget')?.touched" class="invalid-feedback">
+            Expected budget is required.
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="form-group text-center">
+          <button type="button" class="btn btn-danger col-md-4" (click)="submitLead()">Submit Lead</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
 </div>

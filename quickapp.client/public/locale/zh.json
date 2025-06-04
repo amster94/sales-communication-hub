@@ -26,6 +26,7 @@
     "Customers": "客户",
     "Products": "产品",
     "Orders": "订单",
+    "CreateLead": "創建潛在客戶",
     "About": "关于",
     "Logout": "退出登录"
   },
@@ -34,6 +35,7 @@
     "Customers": "客户",
     "Products": "产品",
     "Orders": "订单",
+    "CreateLeadForm": "新增線索",
     "NotFound": "未找到",
     "About": "关于",
     "Settings": "设置"

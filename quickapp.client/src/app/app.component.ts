@@ -23,6 +23,7 @@ import { Alertify } from './models/Alertify';
 import { Permissions } from './models/permission.model';
 import { LoginComponent } from './components/login/login.component';
 import { NotificationsViewerComponent } from './components/controls/notifications-viewer.component';
+import { FormsModule } from '@angular/forms';
 
 declare let alertify: Alertify;
 
@@ -32,7 +33,7 @@ declare let alertify: Alertify;
     styleUrl: './app.component.scss',
     imports: [
         ToastaModule, RouterLink, RouterLinkActive, NgbCollapseModule, NgbPopover, NotificationsViewerComponent,
-        RouterOutlet, TranslateModule
+      RouterOutlet, TranslateModule, FormsModule
     ]
 })
 export class AppComponent implements OnInit, OnDestroy {

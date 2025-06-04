@@ -5,11 +5,18 @@
 // ---------------------------------------
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using QuickApp.Core.Models;
 using QuickApp.Core.Models.Account;
+using QuickApp.Core.Models.Admin;
+using QuickApp.Core.Models.Manager;
+using QuickApp.Core.Models.SalesLead;
+using QuickApp.Core.Models.SalesPerson;
 using QuickApp.Core.Models.Shop;
+using QuickApp.Core.Models.Team;
 using QuickApp.Core.Services.Account;
+using System.Reflection.Emit;
 
 namespace QuickApp.Core.Infrastructure
 {
@@ -25,12 +32,33 @@ namespace QuickApp.Core.Infrastructure
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<AdminModel> Admins { get; set; }
+        public DbSet<ManagerModel> Managers { get; set; }
+        public DbSet<SalesTeamModel> SalesTeam { get; set; }
+        public DbSet<LeadModel> Leads { get; set; }
+        public DbSet<TeamModel> Teams { get; set; }
+        public DbSet<TeamManagerModel> TeamManager { get; set; }
+        public DbSet<TeamSalesPersonModel> TeamSalesPerson { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             const string priceDecimalType = "decimal(18,2)";
-            const string tablePrefix = "App";
+            const string tablePrefix = "";
+
+            builder.Entity<AdminModel>().HasKey(b => b.admin_id)
+        .HasName("PrimaryKey_admin_id");
+            builder.Entity<ManagerModel>().HasKey(b => b.manager_id)
+        .HasName("PrimaryKey_manager_id");
+            builder.Entity<SalesTeamModel>().HasKey(b => b.sales_rep_id)
+        .HasName("PrimaryKey_sales_rep_id");
+            builder.Entity<LeadModel>().HasKey(b => b.lead_id)
+        .HasName("PrimaryKey_lead_id");
+            builder.Entity<TeamModel>().HasKey(b => b.team_id)
+        .HasName("PrimaryKey_team_id");
+
+
 
             builder.Entity<ApplicationUser>()
                 .HasMany(u => u.Claims)
@@ -55,6 +83,39 @@ namespace QuickApp.Core.Infrastructure
                 .HasMany(r => r.Users)
                 .WithOne()
                 .HasForeignKey(r => r.RoleId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<TeamManagerModel>()
+            .HasKey(tm => new { tm.team_id, tm.manager_id }); // Composite PK
+
+            builder.Entity<TeamManagerModel>()
+                .HasOne(tm => tm.Team)
+                .WithMany(tm => tm.TeamManagers)
+                .HasForeignKey(tm => tm.team_id)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<TeamManagerModel>()
+                .HasOne(tm => tm.Manager)
+                .WithMany(m => m.TeamManagers)
+                .HasForeignKey(tm => tm.manager_id)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<TeamSalesPersonModel>()
+            .HasKey(ts => new { ts.team_id, ts.sales_rep_id });
+
+            builder.Entity<TeamSalesPersonModel>()
+                .HasOne(ts => ts.Team)
+                .WithMany(t => t.TeamSalesPerson)
+                .HasForeignKey(ts => ts.team_id)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<TeamSalesPersonModel>()
+                .HasOne(ts => ts.SalesTeam)
+                .WithMany(s => s.TeamSalesPerson)
+                .HasForeignKey(ts => ts.sales_rep_id)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -85,6 +146,45 @@ namespace QuickApp.Core.Infrastructure
             builder.Entity<OrderDetail>().Property(p => p.UnitPrice).HasColumnType(priceDecimalType);
             builder.Entity<OrderDetail>().Property(p => p.Discount).HasColumnType(priceDecimalType);
             builder.Entity<OrderDetail>().ToTable($"{tablePrefix}{nameof(OrderDetails)}");
+
+            builder.Entity<AdminModel>().Property(a => a.first_name).IsRequired().HasMaxLength(100);
+            builder.Entity<AdminModel>().Property(a => a.last_name).IsRequired().HasMaxLength(100);
+            builder.Entity<AdminModel>().Property(a => a.email).HasMaxLength(100);
+            builder.Entity<AdminModel>().Property(a => a.phone_number).IsUnicode(false).HasMaxLength(30);
+            builder.Entity<AdminModel>().Property(a => a.work_role).IsRequired().HasMaxLength(100);
+
+            builder.Entity<ManagerModel>().Property(m => m.first_name).IsRequired().HasMaxLength(100);
+            builder.Entity<ManagerModel>().Property(m => m.last_name).IsRequired().HasMaxLength(100);
+            builder.Entity<ManagerModel>().Property(m => m.email).HasMaxLength(100);
+            builder.Entity<ManagerModel>().Property(m => m.phone_number).IsUnicode(false).HasMaxLength(30);
+            builder.Entity<ManagerModel>().Property(m => m.work_role).IsRequired().HasMaxLength(100);
+
+            builder.Entity<SalesTeamModel>().Property(s => s.first_name).IsRequired().HasMaxLength(100);
+            builder.Entity<SalesTeamModel>().Property(s => s.last_name).IsRequired().HasMaxLength(100);
+            builder.Entity<SalesTeamModel>().Property(s => s.email).HasMaxLength(100);
+            builder.Entity<SalesTeamModel>().Property(s => s.phone_number).IsUnicode(false).HasMaxLength(30);
+            builder.Entity<SalesTeamModel>().Property(s => s.work_role).IsRequired().HasMaxLength(100);
+
+            builder.Entity<LeadModel>().Property(l => l.lead_name).IsRequired().HasMaxLength(100);
+            builder.Entity<LeadModel>().Property(l => l.email).HasMaxLength(100);
+            builder.Entity<LeadModel>().Property(l => l.phone_number).IsUnicode(false).HasMaxLength(30);
+            builder.Entity<LeadModel>().Property(l => l.product_interest).IsRequired().HasMaxLength(255);
+            builder.Entity<LeadModel>().Property(l => l.lead_type).IsRequired().HasMaxLength(100);
+            builder.Entity<LeadModel>().Property(l => l.lead_source).IsRequired().HasMaxLength(100);
+            builder.Entity<LeadModel>().Property(l => l.requirement).HasColumnType("TEXT");
+            builder.Entity<LeadModel>().Property(l => l.expected_budget).IsRequired().HasMaxLength(100);
+            builder.Entity<LeadModel>().Property(l => l.submission_date).IsRequired().HasColumnType("datetime").HasDefaultValueSql("SYSDATETIME()");
+            builder.Entity<LeadModel>().Property(l => l.status).IsRequired().HasMaxLength(100);
+
+            builder.Entity<TeamModel>().Property(t => t.team_name).IsRequired().HasMaxLength(100);
+            builder.Entity<TeamModel>().Property(t => t.team_description).HasColumnType("TEXT");
+            builder.Entity<TeamModel>().Property(t => t.region).IsRequired().HasMaxLength(100);
+            builder.Entity<TeamModel>().Property(t => t.creation_date).IsRequired().HasColumnType("datetime").HasDefaultValueSql("SYSDATETIME()");
+            builder.Entity<TeamModel>().Property(t => t.active_status).IsRequired().HasColumnType("bit");
+            builder.Entity<TeamModel>().Property(t => t.performance_rating).IsRequired().HasMaxLength(50);
+            builder.Entity<TeamModel>().Property(t => t.last_updated).IsRequired().HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
+            builder.Entity<TeamModel>().Property(t => t.is_virtual_team).IsRequired().HasColumnType("bit");
+
         }
 
         public override int SaveChanges()

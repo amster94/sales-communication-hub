@@ -41,6 +41,11 @@
           </li>
           }
           <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/sales-lead" (click)="isMenuCollapsed = true">
+              {{'mainMenu.CreateLead' | translate}}
+            </a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" routerLink="/about" (click)="isMenuCollapsed = true">
               {{'mainMenu.About' | translate}}
             </a>

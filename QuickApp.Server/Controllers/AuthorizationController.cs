@@ -17,7 +17,7 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace QuickApp.Server.Controllers
 {
-    public class AuthorizationController : Controller
+    public class AuthorizationController: Controller
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
